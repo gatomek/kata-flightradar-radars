@@ -92,6 +92,9 @@ const pointToLayer = (feature: Feature, latLng: LatLng) => {
 
 const geoJsonData: FeatureCollection[] = coordList.map(coords => getRadarRanges(coords, distance));
 
+const geoData = geoJsonData.map(d =>
+    <GeoJSON key={hash(d)} data={d} pointToLayer={pointToLayer}/>)
+
 function App() {
     return (
         <MapContainer center={center} zoom={5} scrollWheelZoom={true}>
@@ -99,10 +102,7 @@ function App() {
                 attribution='&copy; <a href="https://carto.com/attributions">CARTO</a>'
                 url="https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png"
             />
-            {
-                geoJsonData.map(d =>
-                    <GeoJSON key={hash(d)} data={d} pointToLayer={pointToLayer}/>)
-            }
+            {geoData}
         </MapContainer>
     )
 }
