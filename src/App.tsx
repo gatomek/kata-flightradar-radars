@@ -59,11 +59,7 @@ const getRadarRanges = (coords: LatLngLiteral, distance: number): FeatureCollect
 
     const points: Position[] = []
     for (let bearing = 0; bearing <= 360; bearing++) {
-        const destination = computeDestinationPoint(
-            coords,
-            distance,
-            bearing
-        );
+        const destination = computeDestinationPoint(coords, distance, bearing);
         points.push([destination.longitude, destination.latitude]);
     }
 
