@@ -80,10 +80,9 @@ const pointToLayer = (feature: Feature, latLng: LatLng) => {
         });
 };
 
+const geoJsonData: FeatureCollection[] = coordList.map(coords => getRadarRange(coords, distance));
+
 function App() {
-
-    const geoJsonData: FeatureCollection[] = coordList.map(coords => getRadarRange(coords, distance));
-
     return (
         <MapContainer center={center} zoom={5} scrollWheelZoom={true}>
             <TileLayer
