@@ -48,8 +48,7 @@ const getRadarRanges = (coords: LatLngLiteral, distance: number): FeatureCollect
     const radar: Feature = {
         type: "Feature",
         properties: {
-            radar: true,
-            key: coords.lng.toString() + "." + coords.lat.toString()
+            radar: true
         },
         geometry: {
             type: "Point",
