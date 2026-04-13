@@ -10,6 +10,11 @@ import type {Feature, FeatureCollection, Position} from 'geojson';
 import L, {type LatLng, type LatLngLiteral} from "leaflet";
 import hash from 'object-hash';
 
+// This is the workaround of workaround for dev because leaflet have a bad concatenation
+if (import.meta.env.DEV) {
+    L.Icon.Default.imagePath = "";
+}
+
 L.Icon.Default.mergeOptions({
     iconUrl: markerIcon,
     iconRetinaUrl: markerIcon2x,
@@ -39,15 +44,16 @@ const coordList: LatLngLiteral[] = [
     romania
 ];
 
-const getRadarRange = (coords: LatLngLiteral, distance: number): FeatureCollection => {
+const getRadarRanges = (coords: LatLngLiteral, distance: number): FeatureCollection => {
     const radar: Feature = {
-        "type": "Feature",
-        "properties": {
-            "radar": true
+        type: "Feature",
+        properties: {
+            radar: true,
+            key: coords.lng.toString() + "." + coords.lat.toString()
         },
-        "geometry": {
-            "type": "Point",
-            "coordinates": [coords.lng, coords.lat]
+        geometry: {
+            type: "Point",
+            coordinates: [coords.lng, coords.lat]
         }
     };
 
@@ -62,20 +68,20 @@ const getRadarRange = (coords: LatLngLiteral, distance: number): FeatureCollecti
         points.push([destination.longitude, destination.latitude]);
     }
 
-    const lineString: Feature = {
-        "type": "Feature",
-        "properties": {},
-        "geometry": {
-            "type": "LineString",
-            "coordinates": points
+    const radarRange: Feature = {
+        type: "Feature",
+        properties: {},
+        geometry: {
+            type: "LineString",
+            coordinates: points
         }
     }
 
     return {
-        "type": "FeatureCollection",
+        type: "FeatureCollection",
         features: [
             radar,
-            lineString
+            radarRange
         ]
     };
 }
@@ -90,7 +96,7 @@ const pointToLayer = (feature: Feature, latLng: LatLng) => {
         });
 };
 
-const geoJsonData: FeatureCollection[] = coordList.map(coords => getRadarRange(coords, distance));
+const geoJsonData: FeatureCollection[] = coordList.map(coords => getRadarRanges(coords, distance));
 
 function App() {
     return (
