@@ -1,5 +1,6 @@
 {
-    "name": "kata-flightradar-radar",
+    "name": "kata-flightradar-radars",
+    "homepage": "https://gatomek.github.io/kata-flightradar-radars",
     "private": true,
     "version": "0.0.0",
     "type": "module",

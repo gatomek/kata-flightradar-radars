@@ -8,6 +8,10 @@ Kata project.
 
 https://github.com/gatomek/kata-flightradar-radars
 
+## Application
+
+https://gatomek.github.io/kata-flightradar-radars
+
 ## Remarks
 
 - Vite 8 (2026-03-12) requires node in version 22.12 and above (https://vite.dev/blog/announcing-vite8#node-js-support)
