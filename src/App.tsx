@@ -9,7 +9,7 @@ import {computeDestinationPoint} from 'geolib';
 import type {Feature, FeatureCollection, Position} from 'geojson';
 import L, {type LatLng, type LatLngLiteral} from 'leaflet';
 import hash from 'object-hash';
-import {coordList} from "./data.ts";
+import {coordList} from './data.ts';
 
 // This is the workaround of workaround for dev because leaflet have a bad concatenation
 if (import.meta.env.DEV) {
