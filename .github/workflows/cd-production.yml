@@ -1,0 +1,45 @@
+name: Deploy App to GitHub Pages
+
+on:
+    push:
+        branches: [main]
+    workflow_dispatch:
+
+permissions:
+    pages: write
+    id-token: write
+    contents: read
+
+concurrency:
+    group: 'pages'
+    cancel-in-progress: false
+
+jobs:
+    build-and-deploy:
+        environment:
+            name: github-pages
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout source
+              uses: actions/checkout@v6
+            - name: Setup Node
+              uses: actions/setup-node@v6
+              with:
+                  node-version: 22
+                  cache: npm
+            - name: Install dependencies
+              run: npm ci
+            - name: Check format
+              run: npm run format:check
+            - name: Build app
+              run: npm run build -- --base=/${{ github.event.repository.name }}/
+            - name: Upload artifacts
+              uses: actions/upload-pages-artifact@v3
+              with:
+                  name: 'app'
+                  path: 'dist'
+            - name: Deploy to GitHub Pages
+              uses: actions/deploy-pages@v4
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  artifact_name: 'app'
