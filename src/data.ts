@@ -1,4 +1,4 @@
-import type {LatLngLiteral} from "leaflet";
+import type {LatLngLiteral} from 'leaflet';
 
 export const britain: LatLngLiteral = {lat: 51.5, lng: -5};
 export const germany: LatLngLiteral = {lat: 51.5, lng: 7};
